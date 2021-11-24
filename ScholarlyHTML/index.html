@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>TRASD - Traffic Sign Smart Detector</title>
+    <link rel="stylesheet" href="css/scholarly.min.css">
+    <script src="js/scholarly.min.js"></script>
+  </head>
+  <body prefix="schema: http://schema.org">
+    <header>
+      <div class="banner">
+        <img src="scholarly-html.svg" width="227" height="50" alt="Scholarly HTML logo">
+        <div class="status"> <a href="https://trello.com/invite/b/oqQVx86H/6f1d0bb669434c1de98e154e15b24a16/wade-project-trasd"> Project Status</a></div>
+      </div>
+      <h1>TRASD - Traffic Sign Smart Detector</h1>
+    </header>
+    <div role="contentinfo">
+      <dl>
+        <dt>Authors</dt>
+        <dd>
+          Cristi Rusu
+          &amp;
+          Denis Aenășoaie
+          &amp;
+          Maria Istrate
+        </dd>
+      </dl>
+    </div>
+    <section typeof="sa:Abstract" id="abstract" role="doc-abstract">
+      <h2>Abstract</h2>
+      <p>
+        TRASD is a (micro-)service based Web System able to detect road/traffic signs marking a highly 
+        frequented route (by vehicles or pedestrians) given by the user in the form of a video or a picture. 
+        For each recognized road sign, information regarding regulatory aspects, type, meaning and relationships
+        to other signs is provided by the system, adding suggestions regarding user behaviour.
+      </p>
+    </section>
+    <section id="introduction" role="doc-introduction">
+      <!-- review? -->
+      <h2>Introduction</h2>
+      <p>
+        There are many applications out there that might offer information regarding road sign positioning
+        by accessing map application APIs, yet what TRASD brings to the table is a micro-service based system
+        that collects every sign and gives explanations and other regulatory information to the user.
+
+      </p>
+      <p>
+        Since the modern ages, GPS systems have proven their necessity and people have become more and more dependent on them
+        as they can manage to ease the trouble of travelling. Besides that, out-of-the-country travelling without 
+        having to ask for direction is now easier than ever. But wouldn't it be easier if the signs shown on the maps
+        also had explanations, taking into consideration that their looks may differ from country to country.
+      </p>
+    
+      <p>
+        Goals:
+      </p>
+      <ul>
+        <li>Create and develop a useful micro-service based web system.</li>
+        <li>Be fully funcitioning on modern Web browsers</li>
+        <li>
+          Be customizable for inclusion in arbitrary Web sites, while remaining easy to process
+          and interoperable.
+        </li>
+        <li>Build on top of open, royalty-free standards.</li>
+        <li>Long-term viability as a data format.</li>
+        <li>Proper use of ontologies.</li>
+        <li>Present everything in a easy-to-read and embed format.</li>
+
+      </ul>
+    </section>
+    <section id="structure">
+
+      <h2>Structure</h2>
+      <p>
+        We will describe below the modules and components that we use for our project.
+        <h3> <span>3.1</span> Image processing</h3>
+        <p>
+          Video Recognition and Image Processing using Python, OpenCV and Tensorflow.
+        </p>
+        <h3> <span>3.2</span> SPARQL API</h3>
+        <p>
+          A SPARQL Query Service is an HTTP Service (also known as a Web Service) that offers an API for performing declarative Data Definition and Data Manipulation operations on data represented as RDF sentence collections.
+        </p>
+        <h3> <span>3.3</span> Frontend Client</h3>
+        <p>
+          Angular 10 Single Page App containing a Data Presenter, Upload Service and API Caller.
+        </p>
+        <h3> <span>3.3</span> Crawling Services</h3>
+        <p>
+          <ul>
+            <li>Waze</li>
+            <li>Google Maps</li>
+            <li>Road Sign DB </li>
+          </ul>
+        </p>  
+      </p>
+    </section>
+    <section id="references">
+      <h3>References</h3>
+      <h3><a href="https://opencv.org/"> Image Processing Module </a></h3>
+      <h3><a href="https://github.com/topics/traffic-sign-recognition"> Traffic Sign Recognition </a></h3>
+      <h3><a href="https://www.ontotext.com/knowledgehub/fundamentals/what-are-ontologies/"> About ontologies </a></h3>
+
+    </section>
+      
+  </body>
+</html>
