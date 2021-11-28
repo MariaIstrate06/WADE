@@ -1,0 +1,274 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "TRASD API",
+    "description": "This is the API for the WADe project TRASD",
+    "contact": {
+      "name": "Cristi Rusu",
+      "url": "https://www.linkedin.com/in/cristi-rusu-b52081198/",
+      "email": "cristi.rusu@info.uaic.ro"
+    },
+    "license": {
+      "name": "GNU General Public License v3.0",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Scholarly HTML Report",
+    "url": "https://github.com/MariaIstrate06/WADE/tree/main/ScholarlyHTML"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:{port}/backoffice.{basePath}",
+      "description": "Project's Backoffice component ran on localhost",
+      "variables": {
+        "port": {
+          "default": "5001",
+          "enum": [
+            "5001",
+            "8090"
+          ]
+        },
+        "basePath": {
+          "default": "v1"
+        }
+      }
+    },
+    {
+      "url": "https://virtserver.swaggerhub.com/cristi.rusu/TRASD-WADe-Project/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "internal",
+      "description": "Internal calls between project components"
+    },
+    {
+      "name": "user",
+      "description": "Calls available only to registered users"
+    },
+    {
+      "name": "interface",
+      "description": "Calls for getting data for the user interface"
+    }
+  ],
+  "paths": {
+    "/trafficSigns": {
+      "get": {
+        "tags": [
+          "interface"
+        ],
+        "summary": "gets traffic signs",
+        "description": "Get all traffic signs recorded in the database",
+        "operationId": "getTrafficSigns",
+        "responses": {
+          "200": {
+            "description": "traffic signs recorded in the database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TrafficSign"
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "no recorded traffic signs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TrafficSign"
+                  },
+                  "default": []
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error payload",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "internal"
+        ],
+        "summary": "adds a TrafficSign item",
+        "description": "Adds an item to the system",
+        "operationId": "addTrafficSign",
+        "requestBody": {
+          "description": "TrafficSign item to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrafficSign"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "item created",
+            "content": {
+              "applocation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrafficSign"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an identical item already exists"
+          },
+          "default": {
+            "description": "error payload",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/videoUpload": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "upload a video to be processed",
+        "description": "User uploads a video to be processed",
+        "operationId": "uploadVideo",
+        "requestBody": {
+          "description": "TrafficSign item to add",
+          "content": {
+            "video/mp4": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "video/mkv": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "video/webm": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "request accepted"
+          },
+          "400": {
+            "description": "invalid input, video format invalid"
+          },
+          "default": {
+            "description": "error paylod",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TrafficSign": {
+        "required": [
+          "coordinates",
+          "description",
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "name": {
+            "type": "string",
+            "example": "Speed Limit 50"
+          },
+          "description": {
+            "type": "string",
+            "example": "On the road portion following this sign you should have a speed of 50km/h or lower."
+          },
+          "coordinates": {
+            "$ref": "#/components/schemas/Coordinates"
+          }
+        }
+      },
+      "Coordinates": {
+        "required": [
+          "latitude",
+          "longitude"
+        ],
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "example": 69.142536
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "example": -79.982222
+          }
+        }
+      },
+      "ErrorModel": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Internal Server Error"
+          },
+          "code": {
+            "maximum": 600,
+            "minimum": 100,
+            "type": "integer",
+            "example": 500
+          }
+        }
+      }
+    }
+  }
+}
